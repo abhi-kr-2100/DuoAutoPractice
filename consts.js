@@ -1,5 +1,5 @@
 // words with apostrophe that Duolingo doesn't separate
-const APS_EXCEPTIONS = ["don't"];
+const APS_EXCEPTIONS = ["don't", "i'm"];
 
 // words whose punctuations shouldn't be deleted
 const PUNCT_EXCEPTIONS = ["Mr.", "Mrs."];
