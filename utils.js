@@ -147,12 +147,22 @@ function getOnScreenInputBox() {
 }
 
 async function solveOnScreenTranslateChallenge(question, answer) {
-  const togBtn = getSwitchToWordBankButton();
+  const togBtn = getSwitchToKeyboardButton();
   if (togBtn) {
     await performAction(() => togBtn.click.apply(togBtn));
   }
 
   const blockElems = getOnScreenWordBlocks();
+  if (!blockElems) {
+    const inputTextArea = getOnScreenInputTextArea();
+    await performAction(() => {
+      setInputNatively(inputTextArea, answer);
+      inputTextArea.dispatchEvent.apply(inputTextArea, [
+        new Event("input", { bubbles: true, cancelable: true }),
+      ]);
+    });
+    return;
+  }
   const words = getWords(answer);
 
   for (const word of words) {
@@ -162,15 +172,40 @@ async function solveOnScreenTranslateChallenge(question, answer) {
   }
 }
 
-function getSwitchToWordBankButton() {
+function setInputNatively(inputElem, value) {
+  const { set } = Object.getOwnPropertyDescriptor(inputElem, "value");
+  const proto = Object.getPrototypeOf(inputElem);
+  const { set: protoSet } =
+    Object.getOwnPropertyDescriptor(proto, "value") || {};
+
+  if (protoSet && set !== protoSet) {
+    protoSet.call(inputElem, value);
+  } else if (set) {
+    set.call(inputElem, value);
+  } else {
+    throw new Error("No value setters!");
+  }
+}
+
+function getOnScreenInputTextArea() {
+  const elem = document.querySelector(
+    '[data-test="challenge-translate-input"]'
+  );
+  return elem;
+}
+
+function getSwitchToKeyboardButton() {
   const elem = document.querySelector('[data-test="player-toggle-keyboard"]');
-  if (elem?.innerText.toLowerCase().includes("word")) {
+  if (elem?.innerText.toLowerCase().includes("keyboard")) {
     return elem;
   }
 }
 
 function getOnScreenWordBlocks() {
   const wordbank = document.querySelector('[data-test="word-bank"]');
+  if (!wordbank) {
+    return;
+  }
   const elems = wordbank.childNodes;
 
   return Array.from(elems);
