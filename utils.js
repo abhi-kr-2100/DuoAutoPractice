@@ -191,12 +191,17 @@ async function solveOnScreenTranslateChallenge(question, answer) {
     });
     return;
   }
+  const annotatedBlockElems = blockElems.map((b) => {
+    b.used = false;
+    return b;
+  });
   const words = getWords(answer);
 
   for (const word of words) {
-    const b = blockElems.find((b) => b.innerText === word);
+    const b = blockElems.find((b) => b.innerText === word && !b.used);
     const btn = b.firstChild.firstChild;
     await performAction(() => btn.click.apply(btn));
+    b.used = true;
   }
 }
 
