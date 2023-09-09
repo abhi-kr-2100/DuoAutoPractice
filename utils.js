@@ -261,7 +261,9 @@ function getWords(sentence) {
     edgeCase.push(`'${r}`);
   }
 
-  const normalized = edgeCase.map((w) => w.replace(/[.,?!¡¿]/g, ""));
+  const normalized = edgeCase.map((w) =>
+    PUNCT_EXCEPTIONS.includes(w) ? w : w.replace(/[.,?!¡¿]/g, "")
+  );
 
   return normalized;
 }
