@@ -11,13 +11,14 @@ async function main() {
     }
 
     const question = getOnScreenQuestion(challengeType);
-    if (!fromQuestionToAnswer.has(question)) {
+    const key = `${challengeType.toString()}~${question}`;
+    if (!fromQuestionToAnswer.has(key)) {
       const answer = await skipAnsweringAndGetOnScreenAnswer();
-      fromQuestionToAnswer.set(question, answer);
+      fromQuestionToAnswer.set(key, answer);
       await skipToNextChallenge();
       continue;
     }
-    const answer = fromQuestionToAnswer.get(question);
+    const answer = fromQuestionToAnswer.get(key);
 
     await solveOnScreenChallenge(challengeType, question, answer);
     await skipToNextChallenge();
