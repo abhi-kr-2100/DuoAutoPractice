@@ -24,5 +24,6 @@ async function main() {
     const answer = fromQuestionToAnswer.get(question);
 
     await solveOnScreenChallenge(challengeType, question, answer);
+    await skipToNextChallenge();
   }
 }
