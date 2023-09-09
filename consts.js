@@ -8,10 +8,12 @@ const CHALLENGE_TYPES = Object.freeze({
   LISTEN_MATCH: Symbol("listenMatch"),
   TRANSLATE: Symbol("translate"),
   MCQ: Symbol("assist"),
+  FILL_IN_THE_GAP_MCQ: Symbol("gapFill"),
 });
 
 const CHALLENGE_TYPE_FROM_ATTR = {
   "challenge-listenMatch": CHALLENGE_TYPES.LISTEN_MATCH,
   "challenge-translate": CHALLENGE_TYPES.TRANSLATE,
   "challenge-assist": CHALLENGE_TYPES.MCQ,
+  "challenge-gapFill": CHALLENGE_TYPES.FILL_IN_THE_GAP_MCQ,
 };

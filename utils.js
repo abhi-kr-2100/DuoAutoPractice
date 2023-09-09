@@ -110,6 +110,7 @@ async function skipAnsweringAndGetOnScreenAnswer() {
 async function solveOnScreenChallenge(challengeType, question, answer) {
   switch (challengeType) {
     case CHALLENGE_TYPES.MCQ:
+    case CHALLENGE_TYPES.FILL_IN_THE_GAP_MCQ:
       await solveOnScreenMCQChallenge(question, answer);
     default:
       break;
