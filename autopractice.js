@@ -10,11 +10,7 @@ async function main() {
       continue;
     }
 
-    console.log("Can't do anything useful just yet...");
-    await skipToNextChallenge();
-    continue;
-
-    const question = getOnScreenQuestion();
+    const question = getOnScreenQuestion(challengeType);
     if (!fromQuestionToAnswer.has(question)) {
       const answer = await skipAnsweringAndGetOnScreenAnswer();
       fromQuestionToAnswer.set(question, answer);
