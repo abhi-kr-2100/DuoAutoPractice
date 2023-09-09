@@ -1,3 +1,6 @@
+// words with apostrophe that Duolingo doesn't separate
+const APS_EXCEPTIONS = ["don't"];
+
 const PAUSE_BETWEEN_CHALLENGES_IN_SECONDS = 0.5;
 
 // pause time before as well as after performing an action

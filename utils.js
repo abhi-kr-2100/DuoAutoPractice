@@ -250,7 +250,7 @@ function getWords(sentence) {
 
   let edgeCase = [];
   for (const w of words) {
-    if (!w.includes("'")) {
+    if (!w.includes("'") || APS_EXCEPTIONS.includes(w.toLowerCase())) {
       edgeCase.push(w);
       continue;
     }
