@@ -60,6 +60,8 @@ function getOnScreenQuestion(challengeType) {
   switch (challengeType) {
     case CHALLENGE_TYPES.MCQ:
       return getOnScreenQuestionForMCQ();
+    case CHALLENGE_TYPES.NAME:
+      return getOnScreenQuestionForName();
     default:
       break;
   }
@@ -70,6 +72,13 @@ function getOnScreenQuestion(challengeType) {
 
   const sentence = wordElems.map((we) => we.innerText).join("");
   return sentence;
+}
+
+function getOnScreenQuestionForName() {
+  const elem = document.querySelector("h1 span");
+  const question = elem.innerText;
+
+  return question;
 }
 
 function getOnScreenQuestionForMCQ() {
@@ -119,9 +128,30 @@ async function solveOnScreenChallenge(challengeType, question, answer) {
     case CHALLENGE_TYPES.FILL_IN_THE_GAP_TYPE:
       await solveOnScreenTypeChallenge(question, answer);
       break;
+    case CHALLENGE_TYPES.NAME:
+      await solveOnScreenNameChallenge(question, answer);
+      break;
     default:
       break;
   }
+}
+
+async function solveOnScreenNameChallenge(question, answer) {
+  const inputBox = getOnScreenTextInput();
+  await performAction(() => inputBox.click.apply(inputBox));
+
+  await performAction(() => {
+    setInputNatively(inputBox, answer.split(",")[0]);
+    inputBox.dispatchEvent.apply(inputBox, [
+      new Event("input", { bubbles: true, cancelable: true }),
+    ]);
+  });
+}
+
+function getOnScreenTextInput() {
+  const elem = document.querySelector('[data-test="challenge-text-input"]');
+
+  return elem;
 }
 
 async function solveOnScreenTypeChallenge(question, answer) {

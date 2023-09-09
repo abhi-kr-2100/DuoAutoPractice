@@ -10,6 +10,7 @@ const CHALLENGE_TYPES = Object.freeze({
   MCQ: Symbol("assist"),
   FILL_IN_THE_GAP_MCQ: Symbol("gapFill"),
   FILL_IN_THE_GAP_TYPE: Symbol("partialReverseTranslate"),
+  NAME: Symbol("name"),
 });
 
 const CHALLENGE_TYPE_FROM_ATTR = {
@@ -18,4 +19,5 @@ const CHALLENGE_TYPE_FROM_ATTR = {
   "challenge-assist": CHALLENGE_TYPES.MCQ,
   "challenge-gapFill": CHALLENGE_TYPES.FILL_IN_THE_GAP_MCQ,
   "challenge-partialReverseTranslate": CHALLENGE_TYPES.FILL_IN_THE_GAP_TYPE,
+  "challenge-name": CHALLENGE_TYPES.NAME,
 };
