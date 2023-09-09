@@ -153,7 +153,7 @@ function getOnScreenWordBlocks() {
 
 function getWords(sentence) {
   const words = sentence.split(" ");
-  const normalized = words.map((w) => w.replace(/[^a-zA-Z'\- ]/g, ""));
+  const normalized = words.map((w) => w.replace(/[.,?!¡¿]/g, ""));
 
   return normalized;
 }
