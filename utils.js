@@ -22,6 +22,7 @@ function getOnScreenChallengeType() {
 function isSkippableChallengeType(challengeType) {
   switch (challengeType) {
     case CHALLENGE_TYPES.LISTEN_MATCH:
+    case CHALLENGE_TYPES.SPEAK:
       return true;
     default:
       return false;

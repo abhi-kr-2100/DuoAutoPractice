@@ -9,6 +9,7 @@ const PAUSE_AROUND_ACTIONS_IN_SECONDS = 0.1;
 
 const CHALLENGE_TYPES = Object.freeze({
   LISTEN_MATCH: Symbol("listenMatch"),
+  SPEAK: Symbol("speak"),
   TRANSLATE: Symbol("translate"),
   MCQ: Symbol("assist"),
   FILL_IN_THE_GAP_MCQ: Symbol("gapFill"),
@@ -23,4 +24,5 @@ const CHALLENGE_TYPE_FROM_ATTR = {
   "challenge-gapFill": CHALLENGE_TYPES.FILL_IN_THE_GAP_MCQ,
   "challenge-partialReverseTranslate": CHALLENGE_TYPES.FILL_IN_THE_GAP_TYPE,
   "challenge-name": CHALLENGE_TYPES.NAME,
+  "challenge-speak": CHALLENGE_TYPES.SPEAK,
 };
