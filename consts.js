@@ -1,8 +1,8 @@
-const PAUSE_BETWEEN_CHALLENGES_IN_SECONDS = 5;
+const PAUSE_BETWEEN_CHALLENGES_IN_SECONDS = 0.5;
 
 // pause time before as well as after performing an action
 // since UI elements take time to be updated, this is a safety precaution
-const PAUSE_AROUND_ACTIONS_IN_SECONDS = 2;
+const PAUSE_AROUND_ACTIONS_IN_SECONDS = 0.1;
 
 const CHALLENGE_TYPES = Object.freeze({
   LISTEN_MATCH: Symbol("listenMatch"),
