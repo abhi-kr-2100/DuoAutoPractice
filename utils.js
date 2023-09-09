@@ -159,12 +159,9 @@ async function solveOnScreenTypeChallenge(question, answer) {
   await performAction(() => inputBox.click.apply(inputBox));
 
   const embeddedAnswer = getOnScreenEmbeddedAnswer(inputBox);
-  inputBox.innerHTML = embeddedAnswer;
-  await performAction(() =>
-    inputBox.dispatchEvent.apply(inputBox, [
-      new Event("input", { bubbles: true, cancelable: true }),
-    ])
-  );
+  await performAction(() => {
+    setReactInputNatively(inputBox, embeddedAnswer);
+  });
 }
 
 function getOnScreenEmbeddedAnswer(inputBox) {
@@ -215,6 +212,13 @@ function setInputNatively(inputElem, value) {
   } else {
     throw new Error("No value setters!");
   }
+}
+
+function setReactInputNatively(inputElem, value) {
+  const descs = Object.entries(Object.getOwnPropertyDescriptors(inputElem));
+  const props = descs.find((d) => d[0].includes("Props"))[1];
+
+  props.value.onInput({ currentTarget: { innerText: value } });
 }
 
 function getOnScreenInputTextArea() {
