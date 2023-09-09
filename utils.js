@@ -116,9 +116,34 @@ async function solveOnScreenChallenge(challengeType, question, answer) {
     case CHALLENGE_TYPES.TRANSLATE:
       await solveOnScreenTranslateChallenge(question, answer);
       break;
+    case CHALLENGE_TYPES.FILL_IN_THE_GAP_TYPE:
+      await solveOnScreenTypeChallenge(question, answer);
+      break;
     default:
       break;
   }
+}
+
+async function solveOnScreenTypeChallenge(question, answer) {
+  const inputBox = getOnScreenInputBox();
+  await performAction(() => inputBox.click.apply(inputBox));
+
+  const embeddedAnswer = getOnScreenEmbeddedAnswer(inputBox);
+  inputBox.innerHTML = embeddedAnswer;
+  await performAction(() =>
+    inputBox.dispatchEvent.apply(inputBox, [
+      new Event("input", { bubbles: true, cancelable: true }),
+    ])
+  );
+}
+
+function getOnScreenEmbeddedAnswer(inputBox) {
+  return inputBox.parentElement.lastChild.innerHTML;
+}
+
+function getOnScreenInputBox() {
+  const elem = document.querySelector("[contenteditable]");
+  return elem;
 }
 
 async function solveOnScreenTranslateChallenge(question, answer) {

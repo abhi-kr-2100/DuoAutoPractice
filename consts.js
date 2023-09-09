@@ -9,6 +9,7 @@ const CHALLENGE_TYPES = Object.freeze({
   TRANSLATE: Symbol("translate"),
   MCQ: Symbol("assist"),
   FILL_IN_THE_GAP_MCQ: Symbol("gapFill"),
+  FILL_IN_THE_GAP_TYPE: Symbol("partialReverseTranslate"),
 });
 
 const CHALLENGE_TYPE_FROM_ATTR = {
@@ -16,4 +17,5 @@ const CHALLENGE_TYPE_FROM_ATTR = {
   "challenge-translate": CHALLENGE_TYPES.TRANSLATE,
   "challenge-assist": CHALLENGE_TYPES.MCQ,
   "challenge-gapFill": CHALLENGE_TYPES.FILL_IN_THE_GAP_MCQ,
+  "challenge-partialReverseTranslate": CHALLENGE_TYPES.FILL_IN_THE_GAP_TYPE,
 };
