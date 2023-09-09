@@ -112,9 +112,50 @@ async function solveOnScreenChallenge(challengeType, question, answer) {
     case CHALLENGE_TYPES.MCQ:
     case CHALLENGE_TYPES.FILL_IN_THE_GAP_MCQ:
       await solveOnScreenMCQChallenge(question, answer);
+      break;
+    case CHALLENGE_TYPES.TRANSLATE:
+      await solveOnScreenTranslateChallenge(question, answer);
+      break;
     default:
       break;
   }
+}
+
+async function solveOnScreenTranslateChallenge(question, answer) {
+  const togBtn = getSwitchToWordBankButton();
+  if (togBtn) {
+    await performAction(() => togBtn.click.apply(togBtn));
+  }
+
+  const blockElems = getOnScreenWordBlocks();
+  const words = getWords(answer);
+
+  for (const word of words) {
+    const b = blockElems.find((b) => b.innerText === word);
+    const btn = b.firstChild.firstChild;
+    await performAction(() => btn.click.apply(btn));
+  }
+}
+
+function getSwitchToWordBankButton() {
+  const elem = document.querySelector('[data-test="player-toggle-keyboard"]');
+  if (elem?.innerText.toLowerCase().includes("word")) {
+    return elem;
+  }
+}
+
+function getOnScreenWordBlocks() {
+  const wordbank = document.querySelector('[data-test="word-bank"]');
+  const elems = wordbank.childNodes;
+
+  return Array.from(elems);
+}
+
+function getWords(sentence) {
+  const words = sentence.split(" ");
+  const normalized = words.map((w) => w.replace(/[^a-zA-Z'\- ]/g, ""));
+
+  return normalized;
 }
 
 async function solveOnScreenMCQChallenge(question, answer) {
