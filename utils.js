@@ -247,7 +247,20 @@ function getOnScreenWordBlocks() {
 
 function getWords(sentence) {
   const words = sentence.split(" ");
-  const normalized = words.map((w) => w.replace(/[.,?!¡¿]/g, ""));
+
+  let edgeCase = [];
+  for (const w of words) {
+    if (!w.includes("'")) {
+      edgeCase.push(w);
+      continue;
+    }
+
+    const [l, r] = w.split("'");
+    edgeCase.push(l);
+    edgeCase.push(`'${r}`);
+  }
+
+  const normalized = edgeCase.map((w) => w.replace(/[.,?!¡¿]/g, ""));
 
   return normalized;
 }
