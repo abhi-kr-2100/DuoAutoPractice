@@ -1,6 +1,6 @@
-async function main() {
-  const fromQuestionToAnswer = new Map();
+const fromQuestionToAnswer = new Map();
 
+async function main() {
   while (window.location.href.endsWith("practice")) {
     await sleep(PAUSE_BETWEEN_CHALLENGES_IN_SECONDS);
 
