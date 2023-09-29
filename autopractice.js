@@ -4,6 +4,12 @@ async function main() {
   while (window.location.href.endsWith("practice")) {
     await sleep(PAUSE_BETWEEN_CHALLENGES_IN_SECONDS);
 
+    if (isSessionOver()) {
+      await practiceAgain();
+      await sleep(PAUSE_BETWEEN_PRACTICE_SESSIONS);
+      continue;
+    }
+
     const challengeType = getOnScreenChallengeType();
     if (isSkippableChallengeType(challengeType)) {
       await skipToNextChallenge();

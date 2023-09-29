@@ -5,6 +5,7 @@ const APS_EXCEPTIONS = ["don't", "i'm", "it's", "what's"];
 const PUNCT_EXCEPTIONS = ["Mr.", "Mrs."];
 
 const PAUSE_BETWEEN_CHALLENGES_IN_SECONDS = 0.5;
+const PAUSE_BETWEEN_PRACTICE_SESSIONS = 5;
 
 // pause time before as well as after performing an action
 // since UI elements take time to be updated, this is a safety precaution

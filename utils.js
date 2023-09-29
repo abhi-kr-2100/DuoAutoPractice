@@ -2,6 +2,21 @@ function sleep(duration) {
   return new Promise((r) => setTimeout(r, duration * 1000));
 }
 
+function isSessionOver() {
+  const practiceAgainBtn = getOnScreenPracticeAgainButton();
+  return practiceAgainBtn !== null;
+}
+
+async function practiceAgain() {
+  const practiceAgainBtn = getOnScreenPracticeAgainButton();
+  await performAction(() => practiceAgainBtn.click.apply(practiceAgainBtn));
+}
+
+function getOnScreenPracticeAgainButton() {
+  const elem = document.querySelector('[data-test="player-practice-again"]');
+  return elem;
+}
+
 function getOnScreenChallengeType() {
   const xpath = '//*[@id="root"]/div[1]/div/div/div[2]/div/div/div';
   const elem = document.evaluate(
