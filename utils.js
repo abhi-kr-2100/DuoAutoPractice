@@ -26,7 +26,7 @@ function getOnScreenChallengeType() {
     XPathResult.FIRST_ORDERED_NODE_TYPE
   ).singleNodeValue;
 
-  const type = elem.getAttribute("data-test").split(" ")[1];
+  const type = elem.getAttribute("data-test")?.split(" ")[1];
   return CHALLENGE_TYPE_FROM_ATTR[type];
 }
 
@@ -38,6 +38,7 @@ function isSkippableChallengeType(challengeType) {
   switch (challengeType) {
     case CHALLENGE_TYPES.LISTEN_MATCH:
     case CHALLENGE_TYPES.SPEAK:
+    case null:
       return true;
     default:
       return false;

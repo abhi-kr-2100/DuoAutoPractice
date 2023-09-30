@@ -31,4 +31,6 @@ const CHALLENGE_TYPE_FROM_ATTR = {
   "challenge-name": CHALLENGE_TYPES.NAME,
   "challenge-speak": CHALLENGE_TYPES.SPEAK,
   "challenge-form": CHALLENGE_TYPES.FORM,
+  [null]: null,
+  [undefined]: null,
 };
