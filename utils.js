@@ -78,6 +78,8 @@ function getOnScreenQuestion(challengeType) {
       return getOnScreenQuestionForMCQ();
     case CHALLENGE_TYPES.NAME:
       return getOnScreenQuestionForName();
+    case CHALLENGE_TYPES.FORM:
+      return getOnScreenQuestionForForm();
     default:
       break;
   }
@@ -88,6 +90,13 @@ function getOnScreenQuestion(challengeType) {
 
   const sentence = wordElems.map((we) => we.innerText).join("");
   return sentence;
+}
+
+function getOnScreenQuestionForForm() {
+  const elem = document.querySelector('[data-prompt]');
+  const question = elem.getAttribute('data-prompt');
+
+  return question;
 }
 
 function getOnScreenQuestionForName() {
@@ -147,6 +156,8 @@ async function solveOnScreenChallenge(challengeType, question, answer) {
     case CHALLENGE_TYPES.NAME:
       await solveOnScreenNameChallenge(question, answer);
       break;
+    case CHALLENGE_TYPES.FORM:
+      await solveOnScreenFormChallenge(question, answer);
     default:
       break;
   }
@@ -162,6 +173,12 @@ async function solveOnScreenNameChallenge(question, answer) {
       new Event("input", { bubbles: true, cancelable: true }),
     ]);
   });
+}
+
+async function solveOnScreenFormChallenge(question, answer) {
+  const choices = getOnScreenForms();
+  const correctChoice = choices.find(e => e.innerText === answer);
+  await performAction(() => correctChoice.click.apply(correctChoice));
 }
 
 function getOnScreenTextInput() {
@@ -302,5 +319,11 @@ function getChoiceText(choiceElem) {
 function getOnScreenChoices() {
   return Array.from(
     document.querySelectorAll('[data-test="challenge-choice"]')
+  );
+}
+
+function getOnScreenForms() {
+  return Array.from(
+    document.querySelectorAll('[data-test="challenge-judge-text"]')
   );
 }
